@@ -48,9 +48,22 @@ async function getIssueById (req, res) {
   }
 }
 
+async function getWorklogList (req, res) {
+  try {
+    const { issueId } = req.params
+    res.status(200).json(await service.getWorklogList({ issueId }))
+  } catch (error) {
+    console.log(error.message, error.stack)
+    res.status(500).json({
+      message: error.message, stack: error.stack, name: error.name
+    })
+  }
+}
+
 export {
   getMyself,
   getIssueList,
   getIssueWorklogById,
-  getIssueById
+  getIssueById,
+  getWorklogList
 }
